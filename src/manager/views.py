@@ -8,7 +8,8 @@ from manager.models import Book, Comment
 class BookView(View):
     def get(self, request):
         comments_for_prefetch = Prefetch('comments',
-                                         queryset=Comment.objects.select_related('user').
+                                         queryset=Comment.objects.
+                                         select_related('user').
                                          annotate(likes_comments=Count('likes')))
         data = {'books': Book.objects.
         prefetch_related(comments_for_prefetch, 'authors').
