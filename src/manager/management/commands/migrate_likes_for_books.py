@@ -1,11 +1,7 @@
-from django.contrib.auth.models import User
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management import BaseCommand
 from django.db.models import Count
 
 from manager.models import Book
-
-
-# from polls.models import Question as Poll
 
 
 class Command(BaseCommand):
@@ -14,5 +10,6 @@ class Command(BaseCommand):
         books = Book.objects.annotate(likes_book=Count('likes'))
         for book in books:
             book.count_likes = book.likes_book
-        Book.objects.bulk_update(books, ['count_likes'])
-        book.save()
+            print(book.count_likes)
+
+        Book.objects.bulk_update(books, ['count_likes'], batch_size=1000)

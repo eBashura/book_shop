@@ -4,10 +4,10 @@ from django.db import models
 
 class Book(models.Model):
     class Meta:
-        verbose_name = 'книга'
-        verbose_name_plural = 'книги'
+        verbose_name = 'кніга'
+        verbose_name_plural = 'кнігі'
 
-    title = models.CharField(max_length=100, verbose_name='название книги')
+    title = models.CharField(db_index=True, max_length=100, verbose_name='назва кнігі')
     text = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     authors = models.ManyToManyField(User, related_name='books')
